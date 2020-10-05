@@ -235,13 +235,16 @@ Enkele basisregels:
 * De D-tijd (afgeleide) verhogen, zal de stabiliteit verbeteren. 
 * Elimineer alle componenten die onnodige fase vertraging kunnen veroorzaken. Want deze hebben een groot effect op de fase marge.
 * Bij een $\underline{cascade}$ systeem regelen we eerst de binnenlus en dan pas de buitenlus. De binnenlus werkt op een hogere frequentie en is vergelijkbaar met een laag-doorlaat filter. 
-
+  
+### P regelaar
 ![\cite{Control system design guide book}](images/Tuning_Pcontroller.JPG)
+### PI regelaar
 ![\cite{Control system design guide book}](images/Tuning_PIcontroller.JPG)
+### PID regelaar
 ![\cite{Control system design guide book}](images/Tuning_PIDcontroller.JPG)
 
 Er is interactieve software beschikbaar waarin 'tuning mapping' een intuïtief overzicht geeft over het gedrag van het proces onder bepaalde instelparameters.
-
+### Regelkaart
 ![\cite{Control system design guide book}](images/Tune_mapping.JPG)
 
 # Zone tuning
