@@ -1,354 +1,269 @@
-\section{Overzicht}
-In het afstellen van regelaars is het kennen van het verschil tussen setpoint-respons en verstoring-respons zeer belangrijk. Afhankelijk van de eisen zal het afstellen specifiek gebeuren om betrouwbaar van setpoint te veranderen of om het proces bestand te maken tegen externe krachten. Om verschillende afstelregels met elkaar te kunnen vergelijken is er een maat voor nauwkeurigheid nodig. De gekwadrateerde error waarde ($R^2$), de integraal van de absolute error waarde ($IAE$) of de integraal van de gekwadrateerde error waarde zijn methodes om een idee te geven van de prestaties.   
-\todo{python simulatie om verschil tussen setpoint-respons en verstoring-respons duidelijk te maken}
-
-% De Z-N methode niet bespreken. Er bestaan tegenwoordig meer robuuste technieken.
-
-\section{Direct synthese (DS)}
- 
-\begin{figure}[h]
-	\centering
-	\setcaptionalignment{c}
-	\caption{Feedback controle systeem \cite{CHEE319_notes_2012_lecture5.pdf}}
-	\includegraphics{feedback_controle_systeem}
-\end{figure}
-Directe synthese start vanuit de transferfunctie van de gesloten lus. Door de controller (C(s)) af te zonderen kan men de gewenste reactie $(\frac{Y(s)}{R(s)})$ definiëren en combineren met het procesmodel. Bij perfecte controle is de gewenste reactie gelijk aan $\underline{één}$ maar dit is niet mogelijk omdat hiervoor een oneindige versterking nodig is. Daarom vervangen we dit door een eerste of twee orde met dode tijd waarvan de prestaties geaccepteerd worden.  
-
-Een eerste orde model met dode tijd:\\
-\[ G^* (s) = \frac{Ke^{-\theta s}}{\tau_1 s +1} \]
-De structuur van een PI controller is als volgt weergegeven:\\
-\[ G(s) = K_c (1+ \frac{1}{\tau_I s}) \]
-Hieruit kunnen de volgende instelregels bepaald worden:\\
-\[ 
-K_c = \frac{1}{K} \frac{\tau_1}{\theta + \tau_c},
-\tau_I = \tau_1 
-\]
-\\
-Een tweede orde model ziet er als volgt uit:\\
-\[ G^* (s) = \frac{Ke^{-\theta s}}{(\tau_1 s +1)(\tau_2 s +1)}\]
-Hiervoor gebruiken we een PID controller:\\
-\[ G(s) = K_c (1 + \frac{1}{\tau_I s} + \tau_D s) \]
-Hieruit worden de volgende instelregels gebruikt:\\
-\[ 
-K_c = \frac{1}{K} \frac{\tau_1 + \tau_2}{\theta + \tau_c}, 
-\tau_I = \tau_1 + \tau_2,
-\tau_D = \frac{\tau_1 \tau_2}{\tau_1 + \tau_2}  
-\]
-
-Een voorbeeld:\\
-Stel dat het volgende model het proces representeert. 
-\[ G^* (s) =  \frac{1.2e^{-0.5 s}}{(8 s +1)(2 s +1)}\]
-Hieruit valt $K = 1.2$, $\theta = 0.5$, $\tau_1 = 8$ en $\tau_2 = 2$ af te leiden. Door de instelregels van directe synthese te volgen zijn $K_c$ (afhankelijk van $\tau_c$), $\tau_I = 10$ en $\tau_D = \frac{8}{5}$ gekend. De simulaties moeten duidelijk maken welke gesloten lus tijdsconstante de beste controller versterking weergeeft. 
-\\
-\todo{simulatiescreenshots invoegen voor verschillende $\tau_c$}
-De keuze van $\tau_c$ is essentieel maar hierover bestaat veel onduidelijkheid. Verschillende richtlijnen proberen dit op te klaren. \\
-\begin{enumerate}
-	\item $\frac{\tau_c}{\theta} > 0.8$ en $\tau_c$ > $0.1\tau$ (Rivera et al., 1986)
-	\item $\tau > \tau_c > \theta$ (Chien and Fruehauf, 1990)
-	\item $\tau_c = \theta$ (Skogestad, 2003)
-\end{enumerate}
-
-\section{Internal Model Control (IMC)}
-
-\begin{figure}[h]
-	\caption{IMC schema \cite{CHEE319_notes_2012_lecture5.pdf}}
-	\begin{center}
-		\includegraphics{IMC_schema}
-	\end{center}
-\end{figure}
-
-Enkel eerste en tweede orde modellen vallen onder de uiteenzetting van de SIMC regels. Hogere orde systemen vergt meer rekenkracht waarbij een computer en de nodige software erg handig kan zijn. Deze tweestapsprocedure werkt vaak goed.
-
-\begin{enumerate}
-	\item Bemachtig het eerste of tweede orde met dode tijd model. \\
-	\[ G(s) = \frac{k}{\tau_1 s + 1} \exp^{-\theta s}	\]
-	\[ G(s) = \frac{k}{(\tau_1 s + 1)(\tau_2 s + 1)} \exp^{-\theta s}	\]
-	\item Leid de controller parameters af met de model gebaseerde SIMC regels.
-\end{enumerate}
-
-Als voorbeeld:\\
-Kies een tweede orde met dode tijd wanneer $\tau_2$ groter is dan de proces vertraging.
-De volgende regels zijn algemeen erkend om de parameters te berekenen.
-\\
-\[ k'= \frac{k}{\tau_1}\]
-\[ K_c = \frac{1}{k'} \frac{1}{\tau_c + \theta}	\]
-\[ \tau_I = min{\tau_1, 4(\tau_c + \theta)} \]
-De afgeleide term $\tau_D$ is pas noodzakelijk wanneer $\tau_2$ groter is dan $\theta$. $\tau_D$ krijgt dan dezelfde waarde als $\tau_2$.
-\\
-Door de gesloten lus tijdsconstante ($\tau_c$) gelijk te stellen met $\tau$ blijft de reactie relatief snel. Samen met een behouden robuustheid. Voor een verhoging van de reactie kan men $\tau_c$ verlagen. Bij het verhogen van $\tau_c$ verlaagt men het reactief vermogen. 
-\\
-\[ K_c \frac{d_u}{e_{max}} \]
-$d_u$ staat voor de externe storingen die invloed hebben op het ingangssignaal. $e_{max}$ staat voor de de maximale afwijking op het uitgangssignaal die getolereerd wordt door de ontwerper.
-Bij verschillende modellen zijn aangepaste regels noodzakelijk.
-\begin{center}
-	\includegraphics[scale=0.8]{IMC_formules}
-\end{center} 
-
-
-
-\section{Respons methoden}
-%zie hoofdstuk 6 Advanced PID control
-Door het proces te testen op zijn open lus reactie is het mogelijk om een beeld te vormen van van de proceseigenschappen. Veelgebruikte ingangssignalen zijn: een stap, een impuls en een sinusoïde. 
-
-\begin{figure}
-	\centering
-	\captionbelow{Eerste orde stap reactie}
-	\includegraphics[scale=0.2]{step_response}
-\end{figure}
-	
-Als een respons na $8 \theta$ niet stabiliseert naar een bepaalde waarde, stop dan het experiment.
-\newline
-$\theta$: dode tijd\\
-$\tau_1$: tijdconstante\\
-De tijdconstante is de tijd die je bij de dode tijd moet voegen om 63\% van de finale waarde te bekomen.\\
-k: steady-state toename\\
-k': de toename na de dode tijd
-\[ k = \frac{\Delta y(1)}{\Delta u} \]
-\[ k' = \frac{k}{\tau_1} \]
-
-\begin{table}[h]
-	\centering
-	\begin{tabular}{ c|c|c|c|c }
-		Controller & $\alpha_K$ & $T_i/L$ & $T_d/L$ & $T_p/L$\\
-		\hline
-		P & 1 & ... & ... & 4\\
-		PI & 0.9 & 3 & ... & 5.7\\
-		PID & 1.2 & 2 & L/2 & 3.4
-	\end{tabular}
-	\caption{Afstelregel voor eerste orde processen.}
-\end{table}
-
-Deze waarden zijn gebaseerd op een open-lus stap respons van een simpel proces. Zoals in illustratie \ref{fig:stap_eersteorde} te zien is, is de stap respons met twee parameters ($\alpha$ en $L$) gekenmerkt. 
-
-Voorbeeld:\\
-Als $\alpha = 0.218$ en $L = 0.806$ blijken te zijn dan vallen de volgende parameters uit de tabel af te leiden. $K = 5.5$, $T_i = 1.61$ en $T_d = 0.403$. 
-
-\begin{comment}
-\subsection{Frequentie respons methode}
-Deze methode maakt gebruik van de Nyquist curve, meer bepaald van het kritische punt gekarakteriseerd door de parameters $K_u$ en $T_u$.\\
-
-%\[ K_u = \frac{1}{K_{180}} \]
-%\[ T_u = \frac{2\pi}{\omega_{180}} \]
-%\[ T_u = \frac{2\pi}{\omega_{u}} \]
-
-In het hoofdstuk 'Systeemtheorie' zal de techniek van Nyquist verder verduidelijkt worden.
-\\
-Verbind een controller aan het proces en zet de parameters zodat enkel de proportionele parameter dominant is. ($T_i = \infty$ en $T_d = 0$)
-Verhoog traag de proportionele parameter tot het systeem oscillerend gedrag begint te vertonen. Deze waarde staat gelijk aan $K_u$. De periode van de oscillatie is $T_u$. 
-\\
-De volgende verhoudingen kunnen functioneren als startwaardes in het afstellen van de regelaar. 
-
-\begin{center}
-	\begin{tabular}{c| c c c c}
-		Controller & $K/K_u$ & $T_i/T_u$ & $T_d/T_u$ & $T_p/T_u$ \\
-		\hline
-		P & 0.5 & ... & ... & 1.0 \\
-		PI & 0.4 & 0.8 & ... & 1.4 \\
-		PID & 0.6 & 0.5 & 0.125 & 0.85
-	\end{tabular}
-\end{center}
-\end{comment}
-
-\subsection{CHR Methode}
-Chien, Hrones en Reswich creëerde deze methode welke een aanpassing is van de open lus Ziegler-Nichols. 
-\begin{comment}
-	\begin{center}
-	\begin{tabular}{c|c|c|c c}
-	... & No overshoot & 20$\%$ overshoot & ... & ... \\
-	\hline
-	Controller & ... & ... & ... & ...\\
-	P & 0.5 & ... & ... & 1.0 \\
-	PI & 0.4 & 0.8 & ... & 1.4 \\
-	PID & 0.6 & 0.5 & 0.125 & 0.85
-	\end{tabular}
-	\end{center}
-\end{comment}
-
-We onderscheiden afstelregels voor meer robuustheid of betere setpoint-tracking. 
-Op de aangegeven punten leest men $t_1$ en $t_2$ af waaruit we met de volgende formules $\tau_m$ en $d_m$ halen.
-\[ \tau_m = \frac{3}{2} (t_2 - t_1) \]
-\[ d_m = \tau_2 - \tau_m \]
-
-\begin{figure}[h]
-	\caption{Uitgangssignaal \cite{Comparison of PID controller tuning methods}}
-	\begin{center}
-		\includegraphics[scale=2]{step_respons_identification}
-	\end{center}
-\end{figure}
-
-\begin{table}[ht]
-	\centering
-	\caption{Afstelregels volgens de CHR methode voor 'load rejection' \cite{Comparison of PID controller tuning methods}}
-	\begin{tabular}[t]{|c|c c c|c c c|}
-		\hline
-		Overshoot                & \multicolumn{3}{c}{0\%}                          & \multicolumn{3}{c}{20\%}                        \\
-		\hline
-		Controller               & $K_c$                      & $\tau_I$ & $\tau_D$ & $K_c$                     & $\tau_I$ & $\tau_D$ \\
-		\hline
-		P                        & (0.3/$K_m$)($\tau_m$ / d)  & /        & /        & (0.3/$K_m$)($\tau_m$ / d) & /        & /        \\ \cline{1-1}
-		PI  					 & (0.6/$K_m$)($\tau_m$ / d)  & 4d       & /        & (0.7/$K_m$)($\tau_m$ / d)  & 2.3d     & /        \\ \cline{1-1}
-		PID                      & (0.95$/K_m$)($\tau_m$ / d) & 2.4d     & 0.42d    & (1.2/$K_m$)($\tau_m$ / d) & 2d       & 0.42d    \\
-		\hline
-	\end{tabular}
-\end{table}
-
-\begin{table}[ht]
-	\centering
-	\caption{Afstelregels volgens de CHR methode voor 'setpoint-tracking' \cite{Comparison of PID controller tuning methods}}
-	\begin{tabular}[t]{|c|c c c|c c c|}
-		\hline
-		Overshoot                & \multicolumn{3}{c}{0\%}                          & \multicolumn{3}{c}{20\%}                        \\
-		\hline
-		Controller               & $K_c$                      & $\tau_I$     & $\tau_D$ & $K_c$                     & $\tau_I$ & $\tau_D$ \\
-		\hline
-		P                        & (0.3/$K_m$)($\tau_m$ / d)  & /            & /        & (0.7/$K_m$)($\tau_m$ / d) & /        & /        \\ \cline{1-1}
-		PI  					 & (0.35/$K_m$)($\tau_m$ / d) & 1.2$\tau_m$  & /        & (0.6/$K_m$)($\tau_m$ / d)  & $\tau_m$     & /        \\ \cline{1-1}
-		PID                      & (0.6$/K_m$)($\tau_m$ / d)  & $\tau_m$     & 0.5d     & (0.95/$K_m$)($\tau_m$ / d) & 1.4$\tau_m$       & 0.47d    \\
-		\hline
-	\end{tabular}
-\end{table}
-
-\subsection{Cohen-Coon Methode}
-Door een stap aan te leggen als ingangssignaal zal het proces een uitgangssignaal genereren waaruit we de verdere regelaarparameters zullen afleiden. 
-
-\begin{center}[ht]
-	\begin{tabular}{c| c c c}
-		Controller & $\alpha$ K & $T_i$/L & $T_d$/L \\
-		\hline
-		P & 0.5 & ... & ...  \\
-		PI & 0.4 & 0.8 & ...  \\
-		PID & 0.6 & 0.5 & 0.125 
-	\end{tabular}
-\end{center}
-
-\begin{figure}[h]
-	\caption{Stap reactie Z-N}
-	\begin{center}
-		\includegraphics[scale=0.15]{Step-response-Ziegler-Nichols}
-	\end{center}
-	\label{fig:stap_eersteorde}
-\end{figure}
-
-
-\section{Empirisch afstellen a.d.h.v. intuïtie}
-Processen die nauwkeurig voorgesteld worden door modellen van lage orde laten toe om op een informele manier met beperkte kennis en tijdsinvestering respectabele prestaties te bekomen. Door de bijdrage en het effect van de P, I en D parameter te bestuderen is het mogelijk manuele afstellingen uit te voeren (zonder garanties op stabiliteit). 
-\\
-Enkele basisregels:
-\\
+\chapter{Systeemtheorie}
+Systeemtheorie omvat hoofdzakelijk de volgende onderwerpen:
 \begin{itemize}
-	\item De proportionele versterking verhogen verlaagt de stabiliteit.
-	\item De error zal sneller verkleinen wanneer de integratietijd vergroot.
-	\item De integratietijd verlagen zal de stabiliteit doen verlagen.
-	\item De D-tijd (afgeleide) verhogen, zal de stabiliteit verbeteren. 
-	\item Elimineer alle componenten die onnodige fase vertraging kunnen veroorzaken. Want deze hebben een groot effect op de fase marge. 
-	\item Bij een $\underline{cascade}$ systeem regelen we eerst de binnenlus en dan pas de buitenlus. De binnenlus werkt op een hogere frequentie en is vergelijkbaar met een laag-doorlaat filter. 
+	\item de analyse van het systeemgedrag
+	\item wiskundige modellen van het systeem
+	\item tijds- en frequentiegedrag 
+	\item invloed van polen en nullen
+	\item stabiliteit
 \end{itemize}
 
-\begin{figure}[H]
-	\centering
-	\caption{\cite{Control system design guide book}}
-	\includegraphics{Tuning a P controller}
-\end{figure}
+
+\newpage
+\section{Tijdsdomein analyse}
+Een analyse van het tijdsdomein is relatief eenvoudig en kan inzicht geven over de proceseigenschappen. $\sigma$ stelt de reële as en $j\omega$ de imaginaire as voor. Polen kunnen bestaan uit zowel een reëel als een imaginair deel. Daarom is het interessant om beide assen te tekenen. Het illustreren van het tijdsdomein respons voor elke pool (of polenpaar) maakt het mogelijk om een beter inzicht te verwerven in het proces. 
+\\  
+We kunnen een eerste opmerking maken over het stabiliteitskarakter. Alle polen die zich aan de rechterkant van de imaginaire as bevinden worden bekeken als onstabiel. In het tijdsdomein zou het proces reageren met een exponentieel stijgend antwoord. Welke tot catastrofale fouten kan leiden in de praktijk. 
+Een tweede punt van aandacht leidt ons naar het oscillerend gedrag wanneer de polen bestaan uit een imaginair gedeelte. Afhankelijk van de proceseisen kan dit getolereerd worden. 
 
 \begin{figure}[H]
 	\centering
-	\caption{\cite{Control system design guide book}}
-	\includegraphics{Tuning a PI controller}
+	\caption{Het effect van polen op het systeemrespons in het tijdsdomein \cite{https://flylib.com/books/en/2.729.1/the_laplace_transform.html}}
+	\includegraphics[width=\textwidth, height=\textheight, keepaspectratio]{poleplacement}
+\end{figure}
+
+
+\section{Systeemtypes}
+\subsection{Dode tijd}
+Dode tijd is één van de hoofdoorzaken van onstabiliteit in de procesindustrie. Het is de belichaming van het tijdsverschil tussen een initiële actie en het waarnemen van het effect ervan. Systemen met pure dode tijd zullen exact dezelfde initiële actie weergeven slechts na een periode van tijd.
+\[ y(t) = x(t - t_0) \]  
+\[ Y(s) = \exp^{-t_0s}X(s) \]
+Het is interessant om te weten dat een serie van eerste orde systemen een schijnbare dode tijd kan veroorzaken. Wanneer bijvoorbeeld verschillende watervaten na elkaar verbonden worden zal een verandering van het startdebiet pas na een periode van tijd een verhoging van het waterniveau van het laatste vat veroorzaken. Veelvoorkomende processen met dode tijd: transportbanden, warmtewisselaars, logistiek, pijplijnen, etc. 
+
+\begin{figure}[H]
+	\caption{Illustratie transportband}
+	\includegraphics{transportband}
+\end{figure}
+\begin{figure}[H]
+	\caption{Reactie van verbonden vaten op een stap-ingangssignaal}
+	\includegraphics{eerste orde dode tijd serie}
+\end{figure}
+
+
+\subsection{Eerste orde}
+Een populaire manier om een proces weer te geven is een eerste orde model. Een eerste orde differentiaalvergelijking vormt na het gebruiken van een Laplacetransformatie de transferfunctie van het proces. 
+\[ \tau \frac{dy(t)}{dt} + y(t) = k u(t) \]
+\[ \tau s Y(s) + Y(s) = k U(s) \]
+\[ (\tau s + 1) Y(s) = k U(s) \]
+\[ H(s) = \frac{Y(s)}{U(s)} = k \frac{1}{\tau s + 1} \]
+
+In de teller bevinden zich geen 'nullen'. De pool ($s_1$), de wortel van de noemer, is te vinden door de noemer gelijk te stellen aan nul.  
+\[ \tau s + 1 = 0, s_1 = \frac{-1}{\tau} \] 
+Het vinden van de polen en nullen is van groot belang in het nagaan van het procesgedrag. De pool (of polen) 
+Het effect van $\tau$ is te zien op figuur \ref{fig:veranderlijketijdsconstanten} waarin grote tijdsconstanten een trage reactie van het systeem representeren. 
+
+\begin{figure}[H]
+	\caption{stapresponsverandering bij veranderlijke $\tau$}
+	\includegraphics{veranderlijke tijdsconstanten}
+	\label{fig:veranderlijketijdsconstanten}
 \end{figure}
 
 \begin{figure}[H]
-	\centering
-	\caption{\cite{Control system design guide book}}
-	\includegraphics{Tuning a PID controller}
+	\caption{reactie op een stap}
+	\includegraphics{eerste orde stap respons}
 \end{figure}
-
-Er is interactieve software beschikbaar waarin 'tuning mapping' een intuïtief overzicht geeft over het gedrag van het proces onder bepaalde instelparameters.
 
 \begin{figure}[H]
-	\centering
-	\includegraphics[scale=0.6]{Tune_mapping}
+	\caption{reactie op een impuls}
+	\includegraphics{eerste orde impuls respons}
+\end{figure}
+
+\begin{figure}[H]
+	\caption{reactie op een talude}
+	\includegraphics{eerste orde talude respons}
 \end{figure}
 
 
-\section{Zone tuning}
-Door het proces in te delen in verschillende zones koppelen we de invloeden van de P, I en D parameters van elkaar los waardoor instellen een stuk overzichtelijker wordt. 
+\subsection{Tweede orde}
+Een tweede orde model volgt dezelfde procedure als een eerste orde model maar baseert zich op een tweede orde differentiaalvergelijking. Door deze extra parameter kan het model de werkelijkheid dichter benaderen en dus meer nauwkeurige resultaten produceren. De combinatie met dode tijd komt veel voor. 
+\[ \frac{K}{(\tau_1s + 1)(\tau_2 + 1)} \exp^{-t_0s} \]
+
+\begin{figure}[H]
+	\caption{Een eerste en tweede model stapantwoord}
+	\includegraphics{eerste vs tweede orde model}
+\end{figure}
+
+
+\subsection{Hogere orde}
+In het hoofdstuk 'Identificatie' staat beschreven hoe het capteren van data het bouwen van nauwkeurige wiskundige modellen mogelijk maakt. In deze stap is een model van hogere orde wenselijk om simulaties zo realistisch mogelijk te maken. Wat volgt is een n-de graadsveeltermvergelijking.
+
+\[ H(s) = \frac{b_N s^N + b_{N-1} s^{N-1} + ... b_0}{a_M s^M + a_{M-1} s^{M-1} + ... a_0} \]
+
+De vergelijking heeft n wortels die complex toegevoegd kunnen worden om de volgende vergelijking te vormen.
+
+\[ H(s) = K \frac{(s-z_1)(s-z_2)...(s-z_n)}{(s-p_1)(s-p_2)...(s-p_m)} \]
+De versterking ($K$), de nulpunten ($z_i$) en de polen ($p_i$) zijn duidelijk te herkennen. Ieder systeem valt dus te beschrijven als een serie van eerste en/of tweede orde systemen.
 \\
-Als voorbeeld nemen we een PI controller met feedback.
-\[ \frac{G}{1+GH} \]
-\[ \frac{Uitgang(s)}{Ingang(s)} =  \frac{sK_P+K_IK_P}{\frac{s^2}{G}+sK_P+K_IK_P} \]
-Een stijging in frequentie zorgt voor een grotere waarde s. Want $s = j\omega = j2\pi f$ zoals we later zullen zien. Door onze intuïtie te volgen leiden we af welke parameters er van een lage naar een hoge frequentie dominant zijn. In dit voorbeeld is de $K_IK_P$ term dominant wanneer de frequentie nul benadert. Dit is de laagfrequente zone. Stijgt de frequentie (middenfrequente zone), dan is $K_P$ belangrijker. Een heel hoge frequentie (hoogfrequente zone) zorgt voor de dominantie van de procesversterking (G). Dit zien we aan de $\frac{s^2}{G}$ term in de vergelijking.
+Een voorbeeld:
 \\
-De proportionele parameter ($K_P$) nemen we als eerste onder handen terwijl we $K_I$ gelijk stellen aan nul. Start met een stap of een blokgolf met een kleine $K_P$ waarde en maak deze in systematisch groter tot de overshoot van het systeem te groot wordt. Hou in het achterhoofd dat grote $K_P$ waarden voor een snellere respons en voor kleinere stabiliteitsmarges zorgen. Het is dus zoeken naar een balans. 
+Stel het systeem $ H(s) = (\frac{0.25}{s^2 + 0.9s + 0.25})^5 \frac{1}{10s + 1}$
+Dit systeem kan eenvoudig benaderd worden door $H'(s) = \frac{1}{11.6s + 1} \exp^{-17.5s}$
+
+\begin{figure}[H]
+	\caption{Hoge orde proces benadering met eerste orde dode tijd model}
+	\includegraphics{hogere orde benadering}
+\end{figure}
+
+Het hoofdstuk 'Identificatie' beschrijft het creëren en selecteren van de juiste modellen om processen te representeren.
 \\
-De integraal parameter ($K_I$) 
+Om aan te tonen dat een hoge orde systeem een serie van eerste en/of tweede orde systemen is, geven we het volgende voorbeeld.
+\[ H(s) = \frac{8}{(s+1)(s^2 + 2s + 3)} \]
+In partieelbreuken zien we een eerste orde en een tweede orde model.
+\[ H(s) = \frac{4}{s+1} + \frac{-4s-4}{s^2+2s+3} \]
+Elk stap antwoord ziet er als volgt uit.
 
-\cite{Control system design guide}
-
-
-
-\section{Computer simulatie}
-
-
-\section{Online tuning}
-
+\begin{figure}[H]
+	\caption{Afzonderlijke stap antwoorden}
+	\includegraphics{afzonderlijke stap antwoorden}
+\end{figure}
 
 \begin{comment}
-\section{Reductie en de halve regel}
-Een te complex model is niet nuttig in deze methodiek dus zal deze gereduceerd moeten worden naar een eenvoudiger model. 
-\begin{center}
-\includegraphics[scale=0.3]{complicated_model}
-\end{center}
-De belangrijkste parameter is de effectieve vertraging $\theta$. 
-De effectieve vertraging is de sommatie van: de werkelijke vertraging, de inverse responstijd, de helft van de grootste tijdsconstante en alle kleinere hoge orde tijdsconstanten.
-\begin{center}
-\includegraphics[scale=0.4]{Approach3}
-\end{center} 
+\subsection{Vertraging (lag)}
 
 
-\section{PID tuning}
-Zonder een systematische aanpak is het correct afstellen van een PID controller onbegonnen werk. Door model gebaseerd en analytisch te werken zijn de SIMC regels neergeschreven geweest met de bedoeling simpele en breed uitvoerbare vuistregels te hanteren bij het afstemmen. 
-
-
-\section{Gesloten lus P-controller setpoint respons}
-
-\begin{figure}
-\includegraphics[scale=0.7]{gesloten_lus_setpointrespons}
-\end{figure}
-
-\begin{enumerate}
-\item Achterhaal de gegevens in het rood. 
-\[ \Delta y_{\infty} = 0.45 (\Delta yp + \Delta yu) \]
-\[ Mo = \frac{\Delta yp - \Delta y_{\infty}}{\Delta yu}  \]
-Mo: overshoot percentage
-\[ b = \frac{\Delta y_{\infty}}{\Delta ys} \]
-\[ A = 1.152 Mo^2 - 1.607 Mo + 1 \]
-\[ r = 2 A |\frac{b}{1-b}| \]
-\item Bouw het eerste orde model op aan de hand van de verkregen gegevens.\\
-\[ k = \frac{1}{K_{c0}} |\frac{b}{1-b}| \]
-\[ \theta = tp (0.309 + 0.209 e^{-0.61 r}) \]
-\[ \tau = \theta * r \] 
-\end{enumerate}
-
-Erg gelijkaardig is het Ziegler-Nichols experiment.
+\subsection{Aanlooptijd (lead)}
 \end{comment}
 
 
-\section{Samengevat}
+\section{Frequentie analyse}
+Door het systeem via een open lus perspectief te bekijken is het mogelijk om een frequentie analyse uit te voeren. De transferfunctie GH is hier van belang want dit stelt het proces (G) en de feedback (H) in serie voor. 
 
-\begin{comment}
-De cascade vorm van de PID controller is een veelgebruikte methode bij afstel regels.
+\subsection{Bode}
+Een Bode plot geen twee grafieken weer. Versterking en fase in functie van hun frequentie. 
+
+\begin{figure}[H]
+	\centering
+	\caption{Versterkingscurve}
+	\includegraphics{bodeplot}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\caption{Fase curve}
+	\includegraphics{faseplot}
+\end{figure}
+
+Deze weergave is handig om stabiliteit criteria zoals versterkings- en fase marges te berekenen. Deze onderwerpen krijgen meer aandacht in het hoofdstuk 'stabiliteit'. 
+
+
+\subsection{Nichols curve}
+Nichols curve is een combinatie van de versterkings- en fase curve. Hierop valt direct af te lezen over welke stabiliteit het gaat. 
 
 \begin{figure}[H]
 \centering
-\caption{PID afstelregels}
-\includegraphics[scale=0.75]{PID_tuning_formulas}
+\caption{Nichols plot \cite{controlsystemtuningguide}}
+\includegraphics{nicholsplot}
 \end{figure}
 
-(2) IMC en G-P methodes zijn setpoint gebaseerd omdat de integraal versterking dicht aanleunen bij de 'setpoint-based optimum integral error' methode. 
-Z-N en C-C methoden kunnen bekeken worden als belasting- gebaseerde methodes.
-PID controllers met setpoint-gebaseerde methoden zijn vaak robuuster dan controllers met belasting-gebaseerde methoden.\\
-(3) SP-gebaseerde methoden bij processen met kleine dode tijd geven kleine integraal versterkingen wat resulteert in trage belasting-reacties. Load-gebaseerde methodes resulteren in grotere integraalversterkingen maar zijn niet robuust.\\
-(4) C-C, Z-N, IMC, IAE, ITAE, ISE en ISTE geven vergelijkbare versterkingen voor processen met grote dode tijd. Setpoint gebaseerde systemen geven over het algemeen (behalve ITAE) betere robuustheid voor processen met grote dode tijd.\\
-(5) Alleen Z-N en ITAE belasting gebaseerde systemen zijn aanvaardbaar. De rest gedraagt zich te agressief. Z-N heeft betere robuustheid bij kleine dode tijd dan bij grote. \\
-Storing afwijzing en systeem robuustheid zijn criteria waarop je PID controllers kan analyseren. \cite{ComparisonWellKnownPID} 
+\begin{figure}[H]
+\centering
+\caption{Blauw: $K_P = 2.4$ en rood: $K_P = 2.4$} \cite{controlsystemtuningguide}}
+\includegraphics{nicholsplot2}
+\end{figure}
+
+\todo{maak duidelijk adhv grafieken wat er gebeurd als de parameters veranderen}
+
+
+
+\subsection{Nyquist}
+Een Nyquist plot geeft de amplitude en de fase van een transferfunctie op een grafische manier weer in een reëel-imaginair veld.
+
+\begin{figure}[H]
+	\centering
+	\caption{Nyquist plot}
+	\includegraphics{nyquistplot}
+\end{figure}
+
+
+\section{Identificatie}
+\subsection{Overzicht}
+Systeemidentificatie is het bouwen van een wiskundig model uit data dat een dynamisch systeem representeert. De nauwkeurigheid van het model t.o.v. de werkelijkheid bekomt men door het model te testen op data die niet werd gebruikt om het model op te bouwen. Dit wordt validatie data genoemd. Het juiste model kiezen om een proces te representeren vraagt kennis en kunde. Door een begrip te hebben van verschillende modeltypes kan de controle ingenieur gemakkelijke de juiste keuzes maken. 
+
+\begin{figure}[H]
+	\centering
+	\captionbelow{Systeem identificatie procedure}
+	\includegraphics[scale=0.1]{SysID_diagram}
+\end{figure}
+
+De opmaak van een systeem identificatie probleem bestaat uit vier verschillende onderdelen.\\
+\begin{itemize}
+	\item De dataset.
+	\item De model structuur.
+	\item De criteria waarmee de fit tussen data en modellen bestudeerd worden. 
+	\item De validatie (en acceptatie) van de resulterende modellen.
+\end{itemize}
+De dataset moet voldoende informatie bevatten om een kwalitatief model te verkrijgen. Het proces in het achterhalen van een geschikte dataset staat bekend als de 'experimentele ontwerp' fase. 
+
+\subsection{Algemene parameters schatten}
+De kleinste kwadraten methode (least squares) en de maximale waarschijnlijkheidsmethode (maximum likelihood) zijn statistische standaard technieken om modelparameters te berekenen. 
+
+\begin{enumerate}
+	\item Modellen aanpassen met data\\
+	\item Modelkwaliteit\\
+	\item Indicaties voor modelfit\\
+	We beschrijven drie verschillende waarden ($\lambda$, $\theta *$ en de variantie error) die een indicatie geven van de modelfit.\\ 
+	$\lambda$ is de onvermijdbare afwijking want het exact voorspellen van het uitgangssignaal is niet mogelijk. 
+	$W(\theta *)$ is de errorwaarde voor de partijdigheid (bias) van het model. Deze is afhankelijk van de gekozen modelstructuur en de omgeving van het experiment. We denken hierbij aan de ingangsspectra, mogelijke feedback,... 
+	De variantie error is niet afhankelijk van de modelstructuur of van de omgeving maar wel van het aantal modelparameters en het aantal datapunten. Het verschil tussen geschatte en werkelijke variantie zal groter worden als het model meer parameters bevat, en zal kleiner worden als er meer datapunten beschikbaar zijn.
+	\item Modelstructuur kiezen\\
+	Kruisvalidatie is een populaire aanpak in het beoordelen van modelstructuren.
+	\item Algoritmes\\
+	Online (recursief), offline (batch), de hellingshoek, locale minima,... 
+	\item 
+\end{enumerate}
+
+\subsection{First Principal}
+
+
+\subsection{Data gedreven}
+\subsubsection{Lineair black box systeem}
+
+
+\subsection{Hybride}
+Hierin combineren we de first principals methode met data gedreven technieken om aan parameter estimatie te doen.
+\subsubsection{Fysische geparametriseerde modellen} 
+\subsubsection{Niet lineaire black box systemen}
+
+
+%\subsection{Eigensystem realization algorithm (ERA)}
+
+%\subsection{Balance truncation (BT)}
+
+%\subsection{BPOD}
+
+%\subsection{Dynamical mode decomposition (DMD)}
+
+
+\begin{comment}
+
+
+
+\section{Stabiliteit}
+Als het systeem in open lus een unitaire versterking en 180° verschilt in fase bij 0Hz dan is het systeem niet stabiel. Want deze situatie zal oscillaties ondersteunen 
+
+\begin{figure}[H]
+\centering
+\caption{}
+\includegraphics{GM en PM}
+\end{figure}
+
+Uit ervaring leken de marges 10-25 [dB] voor de versterking en 35-80 [°] voor de fase een goede start te zijn. De marges zijn afhankelijk van de toepassing en het soort controller. 
+
+\todo{bode/fase plot voor GM en PM}
+
+\\
+Oefening
+\\
+Een open-lus bode plot geeft de versterkings- en fasemarge weer. Een gesloten-lus bode plot geeft de bandbreedte, pieken, overshoot, rise time, ... weer. 
+
+Pieken mogen onder normale omstandigheden de waarde van 1 à 2 dB niet overschrijden. 
+
+\begin{figure}[H]
+\centering
+\caption{Controller space \cite{CHEE319_notes_2012_lecture5.pdf}}
+\includegraphics{controller_space}
+\end{figure}
+
+\subsection{Root locus}
+
 \end{comment}
