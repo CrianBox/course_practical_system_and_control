@@ -104,12 +104,6 @@ Deze weergave is handig om stabiliteit criteria zoals versterkings- en fase marg
 ### Nichols curve
 Nichols curve is een combinatie van de versterkings- en fase curve. Hierop valt direct af te lezen over welke stabiliteit het gaat. 
 
-\begin{figure}[H]
-\centering
-\caption{Nichols plot \cite{controlsystemtuningguide}}
-\includegraphics{nicholsplot}
-\end{figure}
-
 ![Nichols plot \cite{controlsystemtuningguide](images/nicholsplot.JPG)
 ![Blauw: $K_P = 2.4$ en rood: $K_P = 2.4$} \cite{controlsystemtuningguide](images/nicholsplot2.JPG)
 
@@ -124,90 +118,71 @@ Een Nyquist plot geeft de amplitude en de fase van een transferfunctie op een gr
 ### Overzicht
 Systeemidentificatie is het bouwen van een wiskundig model uit data dat een dynamisch systeem representeert. De nauwkeurigheid van het model t.o.v. de werkelijkheid bekomt men door het model te testen op data die niet werd gebruikt om het model op te bouwen. Dit wordt validatie data genoemd. Het juiste model kiezen om een proces te representeren vraagt kennis en kunde. Door een begrip te hebben van verschillende modeltypes kan de controle ingenieur gemakkelijke de juiste keuzes maken. 
 
-\begin{figure}[H]
-	\centering
-	\captionbelow{Systeem identificatie procedure}
-	\includegraphics[scale=0.1]{SysID_diagram}
-\end{figure}
+![Systeem identificatie procedure](images/SysID_diagram.png)
 
 De opmaak van een systeem identificatie probleem bestaat uit vier verschillende onderdelen.
-\begin{itemize}
-	* De dataset.
-	* De model structuur.
-	* De criteria waarmee de fit tussen data en modellen bestudeerd worden. 
-	* De validatie (en acceptatie) van de resulterende modellen.
-\end{itemize}
+
+* De dataset.
+* De model structuur.
+* De criteria waarmee de fit tussen data en modellen bestudeerd worden. 
+* De validatie (en acceptatie) van de resulterende modellen.
+
 De dataset moet voldoende informatie bevatten om een kwalitatief model te verkrijgen. Het proces in het achterhalen van een geschikte dataset staat bekend als de 'experimentele ontwerp' fase. 
 
 ### Algemene parameters schatten
 De kleinste kwadraten methode (least squares) en de maximale waarschijnlijkheidsmethode (maximum likelihood) zijn statistische standaard technieken om modelparameters te berekenen. 
 
-\begin{enumerate}
-	* Modellen aanpassen met data
-	* Modelkwaliteit
-	* Indicaties voor modelfit
-	We beschrijven drie verschillende waarden ($\lambda$, $\theta * $ en de variantie error) die een indicatie geven van de modelfit. 
-	$\lambda$ is de onvermijdbare afwijking want het exact voorspellen van het uitgangssignaal is niet mogelijk. 
-	$W(\theta * )$ is de errorwaarde voor de partijdigheid (bias) van het model. Deze is afhankelijk van de gekozen modelstructuur en de omgeving van het experiment. We denken hierbij aan de ingangsspectra, mogelijke feedback,... 
-	De variantie error is niet afhankelijk van de modelstructuur of van de omgeving maar wel van het aantal modelparameters en het aantal datapunten. Het verschil tussen geschatte en werkelijke variantie zal groter worden als het model meer parameters bevat, en zal kleiner worden als er meer datapunten beschikbaar zijn.
-	* Modelstructuur kiezen
-	Kruisvalidatie is een populaire aanpak in het beoordelen van modelstructuren.
-	* Algoritmes
-	Online (recursief), offline (batch), de hellingshoek, locale minima,... 
-	* 
-\end{enumerate}
+* Modellen aanpassen met data
+* Modelkwaliteit
+* Indicaties voor modelfit
+We beschrijven drie verschillende waarden ($\lambda$, $\theta * $ en de variantie error) die een indicatie geven van de modelfit. 
+$\lambda$ is de onvermijdbare afwijking want het exact voorspellen van het uitgangssignaal is niet mogelijk. 
+$W(\theta * )$ is de errorwaarde voor de partijdigheid (bias) van het model. Deze is afhankelijk van de gekozen modelstructuur en de omgeving van het experiment. We denken hierbij aan de ingangsspectra, mogelijke feedback,... 
+De variantie error is niet afhankelijk van de modelstructuur of van de omgeving maar wel van het aantal modelparameters en het aantal datapunten. Het verschil tussen geschatte en werkelijke variantie zal groter worden als het model meer parameters bevat, en zal kleiner worden als er meer datapunten beschikbaar zijn.
+* Modelstructuur kiezen
+Kruisvalidatie is een populaire aanpak in het beoordelen van modelstructuren.
+* Algoritmes
+Online (recursief), offline (batch), de hellingshoek, locale minima,... 
+
 
 ### First Principal
 
 
 ### Data gedreven
-\subsubsection{Lineair black box systeem}
+* Lineair black box systeem
 
 
 ### Hybride
 Hierin combineren we de first principals methode met data gedreven technieken om aan parameter estimatie te doen.
-\subsubsection{Fysische geparametriseerde modellen} 
-\subsubsection{Niet lineaire black box systemen}
 
+* Fysische geparametriseerde modellen
+* Niet lineaire black box systemen
 
-%### Eigensystem realization algorithm (ERA)}
-
-%### Balance truncation (BT)}
-
-%### BPOD}
-
-%### Dynamical mode decomposition (DMD)}
+### Eigensystem realization algorithm (ERA)
+### Balance truncation (BT)
+### BPOD
+### Dynamical mode decomposition (DMD)
 
 
 \begin{comment}
 
-
-
 ## Stabiliteit
-Als het systeem in open lus een unitaire versterking en 180° verschilt in fase bij 0Hz dan is het systeem niet stabiel. Want deze situatie zal oscillaties ondersteunen 
 
-\begin{figure}[H]
-\centering
-\caption{}
-\includegraphics{GM en PM}
-\end{figure}
+![Domein van de regelaar](images/controller_space.jpg)
+
+Als het systeem in open lus een unitaire versterking en 180° verschilt in fase bij 0Hz dan is het systeem niet stabiel. Want deze situatie zal oscillaties ondersteunen.
+
+![Gain and phase margin](images/GM_PM.jpg)
 
 Uit ervaring leken de marges 10-25 [dB] voor de versterking en 35-80 [°] voor de fase een goede start te zijn. De marges zijn afhankelijk van de toepassing en het soort controller. 
 
-\todo{bode/fase plot voor GM en PM}
+* todo: bode/fase plot voor GM en PM
 
-
-Oefening
+### Oefening
 
 Een open-lus bode plot geeft de versterkings- en fasemarge weer. Een gesloten-lus bode plot geeft de bandbreedte, pieken, overshoot, rise time, ... weer. 
 
 Pieken mogen onder normale omstandigheden de waarde van 1 à 2 dB niet overschrijden. 
-
-\begin{figure}[H]
-\centering
-\caption{Controller space \cite{CHEE319_notes_2012_lecture5.pdf}}
-\includegraphics{controller_space}
-\end{figure}
 
 ### Root locus
 
