@@ -13,12 +13,7 @@ Een analyse van het tijdsdomein is relatief eenvoudig en kan inzicht geven over 
 We kunnen een eerste opmerking maken over het stabiliteitskarakter. Alle polen die zich aan de rechterkant van de imaginaire as bevinden worden bekeken als onstabiel. In het tijdsdomein zou het proces reageren met een exponentieel stijgend antwoord. Welke tot catastrofale fouten kan leiden in de praktijk. 
 Een tweede punt van aandacht leidt ons naar het oscillerend gedrag wanneer de polen bestaan uit een imaginair gedeelte. Afhankelijk van de proceseisen kan dit getolereerd worden. 
 
-\begin{figure}[H]
-	\centering
-	\caption{Het effect van polen op het systeemrespons in het tijdsdomein \cite{https://flylib.com/books/en/2.729.1/the_laplace_transform.html}}
-	\includegraphics[width=\textwidth, height=\textheight, keepaspectratio]{poleplacement}
-\end{figure}
-
+![Het effect van polen op het systeemrespons in het tijdsdomein \cite{https://flylib.com/books/en/2.729.1/the_laplace_transform.html}](images/poleplacement.jpg)
 
 ## Systeemtypes
 ### Dode tijd
@@ -27,15 +22,9 @@ $$ y(t) = x(t - t_0) $$
 $$ Y(s) = \exp^{-t_0s}X(s) $$
 Het is interessant om te weten dat een serie van eerste orde systemen een schijnbare dode tijd kan veroorzaken. Wanneer bijvoorbeeld verschillende watervaten na elkaar verbonden worden zal een verandering van het startdebiet pas na een periode van tijd een verhoging van het waterniveau van het laatste vat veroorzaken. Veelvoorkomende processen met dode tijd: transportbanden, warmtewisselaars, logistiek, pijplijnen, etc. 
 
-\begin{figure}[H]
-	\caption{Illustratie transportband}
-	\includegraphics{transportband}
-\end{figure}
-\begin{figure}[H]
-	\caption{Reactie van verbonden vaten op een stap-ingangssignaal}
-	\includegraphics{eerste orde dode tijd serie}
-\end{figure}
+![Illustratie transportband](images/transportband.JPG)
 
+![Reactie van verbonden vaten op een stap-ingangssignaal](images/eerste_orde_dode_tijd_serie.JPG)
 
 ### Eerste orde
 Een populaire manier om een proces weer te geven is een eerste orde model. Een eerste orde differentiaalvergelijking vormt na het gebruiken van een Laplacetransformatie de transferfunctie van het proces. 
@@ -49,37 +38,21 @@ $$ \tau s + 1 = 0, s_1 = \frac{-1}{\tau} $$
 Het vinden van de polen en nullen is van groot belang in het nagaan van het procesgedrag. De pool (of polen) 
 Het effect van $\tau$ is te zien op figuur \ref{fig:veranderlijketijdsconstanten} waarin grote tijdsconstanten een trage reactie van het systeem representeren. 
 
-\begin{figure}[H]
-	\caption{stapresponsverandering bij veranderlijke $\tau$}
-	\includegraphics{veranderlijke tijdsconstanten}
-	\label{fig:veranderlijketijdsconstanten}
-\end{figure}
-
-\begin{figure}[H]
-	\caption{reactie op een stap}
-	\includegraphics{eerste orde stap respons}
-\end{figure}
-
-\begin{figure}[H]
-	\caption{reactie op een impuls}
-	\includegraphics{eerste orde impuls respons}
-\end{figure}
-
-\begin{figure}[H]
-	\caption{reactie op een talude}
-	\includegraphics{eerste orde talude respons}
-\end{figure}
+### Veranderlijke tijdsconstanten
+![stapresponsverandering bij veranderlijke $\tau$](images/veranderlijke_tijdsconstanten.JPG)
+### Eerste orde stap reactie
+![reactie op een stap](images/eerste_orde_stap_respons.JPG)
+### Eerste orde impuls reactie
+![reactie op een impuls](images/eerste_orde_impuls_respons.JPG)
+### Eerste orde talude reactie
+![reactie op een talude](images/eerste_orde_talude_respons.JPG)
 
 
 ### Tweede orde
 Een tweede orde model volgt dezelfde procedure als een eerste orde model maar baseert zich op een tweede orde differentiaalvergelijking. Door deze extra parameter kan het model de werkelijkheid dichter benaderen en dus meer nauwkeurige resultaten produceren. De combinatie met dode tijd komt veel voor. 
 $$ \frac{K}{(\tau_1s + 1)(\tau_2 + 1)} \exp^{-t_0s} $$
 
-\begin{figure}[H]
-	\caption{Een eerste en tweede model stapantwoord}
-	\includegraphics{eerste vs tweede orde model}
-\end{figure}
-
+![Een eerste en tweede model stapantwoord](images/eerste_vs_tweede_orde_model.JPG)
 
 ### Hogere orde
 In het hoofdstuk 'Identificatie' staat beschreven hoe het capteren van data het bouwen van nauwkeurige wiskundige modellen mogelijk maakt. In deze stap is een model van hogere orde wenselijk om simulaties zo realistisch mogelijk te maken. Wat volgt is een n-de graadsveeltermvergelijking.
@@ -96,10 +69,7 @@ De versterking ($K$), de nulpunten ($z_i$) en de polen ($p_i$) zijn duidelijk te
 Stel het systeem $H(s) = (\frac{0.25}{s^2 + 0.9s + 0.25})^5 \frac{1}{10s + 1}$
 Dit systeem kan eenvoudig benaderd worden door $H'(s) = \frac{1}{11.6s + 1} \exp^{-17.5s}$
 
-\begin{figure}[H]
-	\caption{Hoge orde proces benadering met eerste orde dode tijd model}
-	\includegraphics{hogere orde benadering}
-\end{figure}
+![Hoge orde proces benadering met eerste orde dode tijd model](images/hogere_orde_benadering.jpg)
 
 Het hoofdstuk 'Identificatie' beschrijft het creëren en selecteren van de juiste modellen om processen te representeren.
 
@@ -109,11 +79,7 @@ In partieelbreuken zien we een eerste orde en een tweede orde model.
 $$ H(s) = \frac{4}{s+1} + \frac{-4s-4}{s^2+2s+3} $$
 Elk stap antwoord ziet er als volgt uit.
 
-\begin{figure}[H]
-	\caption{Afzonderlijke stap antwoorden}
-	\includegraphics{afzonderlijke stap antwoorden}
-\end{figure}
-
+![Afzonderlijke stap antwoorden](images/afzonderlijke_stap_antwoorden.jpg)
 
 \begin{comment}
 ### Vertraging (lag)
@@ -128,17 +94,9 @@ Door het systeem via een open lus perspectief te bekijken is het mogelijk om een
 ### Bode
 Een Bode plot geen twee grafieken weer. Versterking en fase in functie van hun frequentie. 
 
-\begin{figure}[H]
-	\centering
-	\caption{Versterkingscurve}
-	\includegraphics{bodeplot}
-\end{figure}
+![Bode plot](images/bodeplot.png)
 
-\begin{figure}[H]
-	\centering
-	\caption{Fase curve}
-	\includegraphics{faseplot}
-\end{figure}
+![Fase plot](images/faseplot.png)
 
 Deze weergave is handig om stabiliteit criteria zoals versterkings- en fase marges te berekenen. Deze onderwerpen krijgen meer aandacht in het hoofdstuk 'stabiliteit'. 
 
@@ -152,25 +110,15 @@ Nichols curve is een combinatie van de versterkings- en fase curve. Hierop valt 
 \includegraphics{nicholsplot}
 \end{figure}
 
-\begin{figure}[H]
-\centering
-\caption{Blauw: $K_P = 2.4$ en rood: $K_P = 2.4$} \cite{controlsystemtuningguide}}
-\includegraphics{nicholsplot2}
-\end{figure}
+![Nichols plot \cite{controlsystemtuningguide](images/nicholsplot.JPG)
+![Blauw: $K_P = 2.4$ en rood: $K_P = 2.4$} \cite{controlsystemtuningguide](images/nicholsplot2.JPG)
 
 \todo{maak duidelijk adhv grafieken wat er gebeurd als de parameters veranderen}
-
-
 
 ### Nyquist
 Een Nyquist plot geeft de amplitude en de fase van een transferfunctie op een grafische manier weer in een reëel-imaginair veld.
 
-\begin{figure}[H]
-	\centering
-	\caption{Nyquist plot}
-	\includegraphics{nyquistplot}
-\end{figure}
-
+![Nyquist plot](images/nyquistplot.jpg)
 
 ## Identificatie
 ### Overzicht
