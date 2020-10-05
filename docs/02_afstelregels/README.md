@@ -236,31 +236,13 @@ Enkele basisregels:
 * Elimineer alle componenten die onnodige fase vertraging kunnen veroorzaken. Want deze hebben een groot effect op de fase marge.
 * Bij een $\underline{cascade}$ systeem regelen we eerst de binnenlus en dan pas de buitenlus. De binnenlus werkt op een hogere frequentie en is vergelijkbaar met een laag-doorlaat filter. 
 
-\begin{figure}[H]
-	\centering
-	\caption{\cite{Control system design guide book}}
-	\includegraphics{Tuning a P controller}
-\end{figure}
-
-\begin{figure}[H]
-	\centering
-	\caption{\cite{Control system design guide book}}
-	\includegraphics{Tuning a PI controller}
-\end{figure}
-
-\begin{figure}[H]
-	\centering
-	\caption{\cite{Control system design guide book}}
-	\includegraphics{Tuning a PID controller}
-\end{figure}
+![\cite{Control system design guide book}](images/Tuning_Pcontroller.JPG)
+![\cite{Control system design guide book}](images/Tuning_PIcontroller.JPG)
+![\cite{Control system design guide book}](images/Tuning_PIDcontroller.JPG)
 
 Er is interactieve software beschikbaar waarin 'tuning mapping' een intuïtief overzicht geeft over het gedrag van het proces onder bepaalde instelparameters.
 
-\begin{figure}[H]
-	\centering
-	\includegraphics[scale=0.6]{Tune_mapping}
-\end{figure}
-
+![\cite{Control system design guide book}](images/Tune_mapping.JPG)
 
 # Zone tuning
 Door het proces in te delen in verschillende zones koppelen we de invloeden van de P, I en D parameters van elkaar los waardoor instellen een stuk overzichtelijker wordt. 
@@ -276,7 +258,6 @@ De proportionele parameter ($K_P$) nemen we als eerste onder handen terwijl we $
 De integraal parameter ($K_I$) 
 
 \cite{Control system design guide}
-
 
 
 # Computer simulatie
