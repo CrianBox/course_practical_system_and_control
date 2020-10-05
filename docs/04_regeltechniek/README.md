@@ -1,58 +1,37 @@
-\chapter{Regeltechniek}
+# Regeltechniek
 Regeltechniek omvat hoofdzakelijk de volgende onderwerpen:
-\begin{itemize}
-	\item regelaarontwerp
-	\item inzicht van systeemtheorie gebruiken
-	\item inzicht van de performantiecriteria voor het gesloten lus gedrag gebruiken
-	\item verschillende ontwerpmethodes 
-\end{itemize}
+* regelaarontwerp
+* inzicht van systeemtheorie gebruiken
+* inzicht van de performantiecriteria voor het gesloten lus gedrag gebruiken
+* verschillende ontwerpmethodes 
 
-\section{basis}
+## Basis
 
-\subsection{Voorwaardse koppeling (feedforward)}
+### Voorwaardse koppeling (feedforward)
 
+### Achterwaardse koppeling (feedback)
 
-\subsection{Achterwaardse koppeling (feedback)}
-
-%\begin{comment}
-\subsection{Weerstand tegen storing}
+### Weerstand tegen storing
 Storing kunnen zowel ruis als externe krachten zijn. 
 
-\begin{figure}[H]
-\centering
-\caption{Model van een voeding \cite{Control system design guide book}}
-\includegraphics{powersupply_model}
-\end{figure}
+![Model van een voeding \cite{Control system design guide book}](images/powersupply_model.jpg)
 
-\[ \frac{U_F(s)}{I_{LOAD}(s)}$ = $\frac{1/Cs}{1+(1/Cs) (1+K_I/s) K_P LPF(s)} \] 
+$$\frac{U_F(s)}{I_{LOAD}(s)} = \frac{1/Cs}{1+(1/Cs) (1+K_I/s) K_P LPF(s)}$$  
 
 In het mid-frequent domein is de weerstand tegen storing het slechtste.
 
-\begin{figure}[H]
-\centering
-\caption{Transferfunctie van verstoringsignaal \cite{Control system design guide book}}
-\includegraphics{disturbance_rejection}
-\end{figure}
+![Transferfunctie van verstoringsignaal \cite{Control system design guide book}](images/disturbance_rejection.jpg)
+![Invloed van parametervariatie op het verstoringssignaal \cite{Control system design guide book}](images/disturbance_rejection_illustration.jpg)
 
-\begin{figure}[H]
-\centering
-\caption{Invloed van parametervariatie op het verstoringssignaal \cite{Control system design guide book}}
-\includegraphics{disturbance_rejection}
-\end{figure}
+## PID architecturen
 
-%\end{comment}
- 
- 
+## Dode tijd compensatie 
+### Smith predictor
 
-\section{PID architecturen}
-
-\begin{comment}
-\section{anti-aliasing}
-\section{integrator anti-windup}
-\section{derivative filtering}
-\section{digital implementation}
-\section{energie-verbruik}
-\section{prefiltering}
-\section{notch filtering}
-\section{dode tijd compensatie}
-\end{comment}
+## Anti-aliasing
+## Integrator anti-windup
+## Derivative filtering
+## Digital implementation
+## Energie-verbruik
+## Prefiltering
+## Notch filtering
