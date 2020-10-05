@@ -1,63 +1,58 @@
-\chapter{Data-gedreven controle}
+# Data-gedreven controle
 De voorgaande theorie is een goede basis in het begrijpen van de volgende procedure. Deze gaat over het bekomen van een controle systeem wanneer geen nauwkeurig model van het proces voorhanden is. Input-output data, die gerelateerd zijn aan het proces, bevat informatie die noodzakelijk is om het proces wiskundig te beschrijven. 
 
-\section{Data captatie}
+##  Data captatie
 
-\section{Systeem identificatie}
+##  Systeem identificatie
 
-\section{Controller ontwerp}
+##  Controller ontwerp
 
-\section{Testen in de praktijk}
+##  Testen in de praktijk
 \
 
-\chapter{Casestudies}
+# Casestudies
 In dit hoofdstuk focussen we ons op het toepassen van de theorie op een aantal veelvoorkomende oefeningen met het doel om inzicht en vaardigheden te verwerven. Er bestaan verschillende schema's en stappenplannen om meer overzicht te creëren. Dit is echter geen garantie voor succes. Het is wel een goed begin bij complexe opgaven en het zal voorkomen dat er tijdrovende fouten worden gemaakt later in het proces.  
 
-\begin{enumerate}
-	\item Bekijk de verworven data.
-	
-	\item Schat de moeilijkheid in.
-		\begin{itemize}
-			\item Spectrale analyse benadering, ARX en state space model frequentie functies.
-			\item Correlatie analyse benadering, ARX en state space model transiënte resultaten.
-			\item Gemeten validatie output data, ARX en state space model gesimuleerde outputsignalen. Ookwel 'Model Output Plot' genaamd. 
-		\end{itemize}
-	
-	\item Onderzoek de moeilijkheden.
-		\begin{itemize}
-			\item Onstabiele modelstructuur
-			\item Feedback in de data
-			\item Ruismodel
-			\item Model orde
-			\item Aanvullende ingangssignalen
-			\item Niet lineaire effecten
-			\item Rest
-			Onvoldoende informatie, een slechte signaal/ruis verhouding, onbekende externe verstoringen en variërende systeem eigenschappen kunnen bijkomende verklaringen zijn van slechte validatie resultaten. Als deze voorkomen worden niet-lineaire black box modellen overwogen.
-		\end{itemize}
-	
-	\item Verfijn het aantal ordes.
-		\begin{itemize}
-			\item De fit tussen gesimuleerde en gemeten data.
-			\item Residu analyse 
-			\item Polen en nullen elimineren
-		\end{itemize}
-	
-	\item Aanvaard (tijdelijk) het bekomen model
-	
-\end{enumerate}
 
-\begin{comment}
+1.  Bekijk de verworven data.
+	
+2.  Schat de moeilijkheid in.
+  
+    * Spectrale analyse benadering, ARX en state space model frequentie functies.
+  	*  Correlatie analyse benadering, ARX en state space model transiënte resultaten.
+ 	*  Gemeten validatie output data, ARX en state space model gesimuleerde outputsignalen. Ookwel 'Model Output Plot' genaamd. 
+		
+3.  Onderzoek de moeilijkheden.
+	* Onstabiele modelstructuur
+	* Feedback in de data
+	* Ruismodel
+	* Model orde
+	* Aanvullende ingangssignalen
+	* Niet lineaire effecten
+	* Rest
+    	* Onvoldoende informatie, een slechte signaal/ruis verhouding, onbekende externe verstoringen en variërende systeem eigenschappen kunnen bijkomende verklaringen zijn van slechte validatie resultaten. Als deze voorkomen worden niet-lineaire black box modellen overwogen.
+	
+4.  Verfijn het aantal ordes.
+		
+    *  De fit tussen gesimuleerde en gemeten data.
+    *  Residu analyse 
+    *  Polen en nullen elimineren
+		
+5.  Aanvaard (tijdelijk) het bekomen model
+
+
+<!--
 Betere controle ontwerpen zijn vaak het het resultaat van design of experiments (DOE), statistiek en optimalisatie. Kennis van aansluitende softwarepakketten vereenvoudigd het optimaliseren van het design wanneer meerdere objectieven van kracht zijn. (bv. Matlab, Simulink, ...)
 https://nl.mathworks.com/discovery/design-optimization.html
-\end{comment}
+-->
 
 
 
-\section{Temperatuurregeling in een oven}
+##  Temperatuurregeling in een oven}
 Het doel bestaat uit het regelen van de temperatuur in een oven waarbij de setpoint op 500°C ligt. De grenzen liggen op +- 2°C. Een chroom-aluminium thermokoppel wordt gebruikt met een sensitiviteit van 41 mV/°C en een bereik van -1890°C tot 1260°C. Hou rekening met de koude verbinding compensatie en het plaatsen van de nodige versterker.  
 \cite{Instrumentation and control systems}
 
-\section{Water niveau regeling}
+##  Water niveau regeling}
 
 \begin{figure}[H]
 	\centering
@@ -134,19 +129,19 @@ Via het software pakket 'Matlab' is het mogelijk om waardevolle tijdsdomeinkarak
 De transferfunctie voor een systeem met één vat zal sneller reageren dan twee vaten in serie. 
 
 \begin{itemize}
-	\item risetime: 22
-	\item settlingtime: 39
-	\item overshoot: 0
-	\item piek: 2
+	*  risetime: 22
+	*  settlingtime: 39
+	*  overshoot: 0
+	*  piek: 2
 \end{itemize}
 
 Dit is merkbaar wanneer we de risetime en settlingtime met elkaar vergelijken. 
 
 \begin{itemize}
-	\item risetime: 38.5
-	\item settlingtime: 70
-	\item overshoot: 0
-	\item piek: 2
+	*  risetime: 38.5
+	*  settlingtime: 70
+	*  overshoot: 0
+	*  piek: 2
 \end{itemize}
 
 Met behulp van de cursus kunnen sufficiënte P, I en D parameterwaarden berekend worden om een robuust en efficiënt systeem te bouwen. 
@@ -165,7 +160,7 @@ https://nl.mathworks.com/help/slcontrol/ug/passive-control-of-water-tank-level.h
 \end{comment}
 
 
-\section{Vloeistof verwarmer}
+##  Vloeistof verwarmer}
 
 \begin{figure}[H]
 	\centering
@@ -178,7 +173,7 @@ cursus Frederik
 \end{comment}
 
 \begin{comment}
-\section{Stuuroppervlak van een vliegtuig}
+##  Stuuroppervlak van een vliegtuig}
 
 \begin{figure}[H]
 	\centering
@@ -189,14 +184,14 @@ cursus Frederik
 
 \end{comment}
 
-\section{Continuous Stirred Tank Reactor (CSTR)}
+##  Continuous Stirred Tank Reactor (CSTR)}
 Dit is een mooi voorbeeld om gain-scheduled PID control uit te werken. 
 https://nl.mathworks.com/videos/gain-scheduling-of-pid-controllers-68883.html
 
-\section{Servomotor sturing}
+##  Servomotor sturing}
 Stel met behulp van 'First principals' de differentiaalvergelijkingen op en reken deze om naar het frequentiedomein met Laplace. 
 Bestudeer de polen en nullen.
 Hoe zal het systeem reageren in het frequentiedomein bij een stap, impuls en sinusoïdaal ingangssignaal. 
 
-\section{Hydraulische kleppen}
+##  Hydraulische kleppen}
 Hier letten we op het niet-lineair gedrag van de kleppen. Is het mogelijk om een robuuste lineaire regelkring te maken door de niet-lineaire kenmerken rond het werkingspunt te lineariseren?
