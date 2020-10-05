@@ -174,12 +174,7 @@ Op de aangegeven punten leest men $t_1$ en $t_2$ af waaruit we met de volgende f
 $$ \tau_m = \frac{3}{2} (t_2 - t_1) $$
 $$ d_m = \tau_2 - \tau_m $$
 
-\begin{figure}[h]
-	\caption{Uitgangssignaal \cite{Comparison of PID controller tuning methods}}
-	\begin{center}
-		\includegraphics[scale=2]{step_respons_identification}
-	\end{center}
-\end{figure}
+![Uitgangssignaal \cite{Comparison of PID controller tuning methods}](images/step_respons_identification.png)
 
 \begin{table}[ht]
 	\centering
@@ -226,13 +221,7 @@ Door een stap aan te leggen als ingangssignaal zal het proces een uitgangssignaa
 	\end{tabular}
 \end{center}
 
-\begin{figure}[h]
-	\caption{Stap reactie Z-N}
-	\begin{center}
-		\includegraphics[scale=0.15]{Step-response-Ziegler-Nichols}
-	\end{center}
-	\label{fig:stap_eersteorde}
-\end{figure}
+![Stap reactie Z-N](images/Step-response-Ziegler-Nichols.png)
 
 
 # Empirisch afstellen a.d.h.v. intuïtie
