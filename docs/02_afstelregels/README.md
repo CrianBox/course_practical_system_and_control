@@ -108,17 +108,12 @@ k': de toename na de dode tijd
 $$ k = \frac{\Delta y(1)}{\Delta u} $$
 $$ k' = \frac{k}{\tau_1} $$
 
-\begin{table}[h]
-	\centering
-	\begin{tabular}{ c|c|c|c|c }
-		Controller & $\alpha_K$ & $T_i/L$ & $T_d/L$ & $T_p/L$\\
-		\hline
-		P & 1 & ... & ... & 4\\
-		PI & 0.9 & 3 & ... & 5.7\\
-		PID & 1.2 & 2 & L/2 & 3.4
-	\end{tabular}
-	\caption{Afstelregel voor eerste orde processen.}
-\end{table}
+### Afstelregels voor eerste orde processen
+| Controller | $\alpha_K$ | $T_i/L$ | $T_d/L$ | $T_p/L$ |
+|------------|:----------:|---------|---------|:-------:|
+|      P     |      1     |   ...   |   ...   |    4    |
+|     PI     |     0.9    |    3    |   ...   |   5.7   |
+|     PID    |     1.2    |    2    |  $L/2$  |   3.4   |
 
 Deze waarden zijn gebaseerd op een open-lus stap respons van een simpel proces. Zoals in illustratie \ref{fig:stap_eersteorde} te zien is, is de stap respons met twee parameters ($\alpha$ en $L$) gekenmerkt. 
 
@@ -176,50 +171,34 @@ $$ d_m = \tau_2 - \tau_m $$
 
 ![Uitgangssignaal \cite{Comparison of PID controller tuning methods}](images/step_respons_identification.png)
 
-\begin{table}[ht]
-	\centering
-	\caption{Afstelregels volgens de CHR methode voor 'load rejection' \cite{Comparison of PID controller tuning methods}}
-	\begin{tabular}[t]{|c|c c c|c c c|}
-		\hline
-		Overshoot                & \multicolumn{3}{c}{0\%}                          & \multicolumn{3}{c}{20\%}                        \\
-		\hline
-		Controller               & $K_c$                      & $\tau_I$ & $\tau_D$ & $K_c$                     & $\tau_I$ & $\tau_D$ \\
-		\hline
-		P                        & (0.3/$K_m$)($\tau_m$ / d)  & /        & /        & (0.3/$K_m$)($\tau_m$ / d) & /        & /        \\ \cline{1-1}
-		PI  					 & (0.6/$K_m$)($\tau_m$ / d)  & 4d       & /        & (0.7/$K_m$)($\tau_m$ / d)  & 2.3d     & /        \\ \cline{1-1}
-		PID                      & (0.95$/K_m$)($\tau_m$ / d) & 2.4d     & 0.42d    & (1.2/$K_m$)($\tau_m$ / d) & 2d       & 0.42d    \\
-		\hline
-	\end{tabular}
-\end{table}
+### CHR afstelregels tegen verstoringen (= disturbance rejection)
+| Overshoot  |             0%             |          |          |            20%            |          |          |
+|------------|:--------------------------:|----------|----------|:-------------------------:|----------|----------|
+| Controller | $K_c$                      | $\tau_I$ | $\tau_D$ | $K_c$                     | $\tau_I$ | $\tau_D$ |
+| P          | (0.3/$K_m$)($\tau_m$ / L)  |          |          | (0.3/$K_m$)($\tau_m$ / L) |          |          |
+| PI         | (0.6/$K_m$)($\tau_m$ / L)  | 4L       |          | (0.7$K_m$)($\tau_m$ / L)  | 2.3L     |          |
+| PID        | (0.95$/K_m$)($\tau_m$ / L) | 2.4L     | 0.42L    | (1.2/$K_m$)($\tau_m$ / L) | 2L       | 0.42L    |
 
-\begin{table}[ht]
-	\centering
-	\caption{Afstelregels volgens de CHR methode voor 'setpoint-tracking' \cite{Comparison of PID controller tuning methods}}
-	\begin{tabular}[t]{|c|c c c|c c c|}
-		\hline
-		Overshoot                & \multicolumn{3}{c}{0\%}                          & \multicolumn{3}{c}{20\%}                        \\
-		\hline
-		Controller               & $K_c$                      & $\tau_I$     & $\tau_D$ & $K_c$                     & $\tau_I$ & $\tau_D$ \\
-		\hline
-		P                        & (0.3/$K_m$)($\tau_m$ / d)  & /            & /        & (0.7/$K_m$)($\tau_m$ / d) & /        & /        \\ \cline{1-1}
-		PI  					 & (0.35/$K_m$)($\tau_m$ / d) & 1.2$\tau_m$  & /        & (0.6/$K_m$)($\tau_m$ / d)  & $\tau_m$     & /        \\ \cline{1-1}
-		PID                      & (0.6$/K_m$)($\tau_m$ / d)  & $\tau_m$     & 0.5d     & (0.95/$K_m$)($\tau_m$ / d) & 1.4$\tau_m$       & 0.47d    \\
-		\hline
-	\end{tabular}
-\end{table}
+### CHR afstelregels voor setpoint benadering (= setpoint tracking)
+<!--
+\cite{Comparison of PID controller tuning methods}
+-->
+| Controller | 0% overshoot |        |        | 20% overshoot |        |         |
+|------------|:------------:|--------|--------|:-------------:|--------|---------|
+|            |     $K_p$    | $T_i$  | $T_d$  |     $K_p$     | $T_i$  | $T_d$   |
+|      P     |    $0.3/a$   |        |        |    $0.7/a$    |        |         |
+|     PI     |   $0.35/a$   | $1.2T$ |        |    $0.6/a$    |   $T$  |         |
+|     PID    |    $0.6/a$   |   $T$  | $0.5L$ |    $0.95/a$   | $1.4T$ | $0.47L$ |
+
 
 ## Cohen-Coon Methode
 Door een stap aan te leggen als ingangssignaal zal het proces een uitgangssignaal genereren waaruit we de verdere regelaarparameters zullen afleiden. 
 
-\begin{center}[ht]
-	\begin{tabular}{c| c c c}
-		Controller & $\alpha$ K & $T_i$/L & $T_d$/L \\
-		\hline
-		P & 0.5 & ... & ...  \\
-		PI & 0.4 & 0.8 & ...  \\
-		PID & 0.6 & 0.5 & 0.125 
-	\end{tabular}
-\end{center}
+| Controller | $\alpha$ K | $T_i$/L | $T_d$/L |
+|------------|:----------:|---------|---------|
+|      P     |     0.5    | ...     | ...     |
+|     PI     |     0.4    |   0.8   |   ...   |
+|     PID    |     0.6    |   0.5   |  0.125  |
 
 ![Stap reactie Z-N](images/Step-response-Ziegler-Nichols.png)
 
