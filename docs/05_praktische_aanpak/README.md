@@ -3,6 +3,11 @@ De voorgaande theorie is een goede basis in het begrijpen van de volgende proced
 
 ##  Data captatie
 
+### Sensoren kalibreren
+
+### Filters toepassen
+
+
 ##  Systeem identificatie
 
 ##  Controller ontwerp
