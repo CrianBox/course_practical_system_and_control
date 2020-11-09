@@ -224,14 +224,14 @@ Enkele basisregels:
 
 Er is interactieve software beschikbaar waarin 'tuning mapping' een intuïtief overzicht geeft over het gedrag van het proces onder bepaalde instelparameters.
 ### Regelkaart
-![\cite{Control system design guide book}](images/Tune_mapping.JPG)
+![\cite{Control system design guide book}](images/Tune_mapping.jpg)
 
 # Zone tuning
 Door het proces in te delen in verschillende zones koppelen we de invloeden van de P, I en D parameters van elkaar los waardoor instellen een stuk overzichtelijker wordt. 
 
 Als voorbeeld nemen we een PI controller met feedback.
-$$ \frac{G}{1+GH} $$
-$$ \frac{Uitgang}{Ingang} =  \frac{sK_P+K_IK_P}{\frac{s^2}{G}+sK_P+K_IK_P} $$
+$$\frac{G}{1+GH}$$
+$$\frac{Uitgang}{Ingang} =  \frac{sK_P+K_IK_P}{\frac{s^2}{G}+sK_P+K_IK_P}$$
 
 Een stijging in frequentie zorgt voor een grotere waarde s. Want $s = j\omega = j2\pi f$ zoals we later zullen zien. Door onze intuïtie te volgen leiden we af welke parameters er van een lage naar een hoge frequentie dominant zijn. In dit voorbeeld is de $K_IK_P$ term dominant wanneer de frequentie nul benadert. Dit is de laagfrequente zone. Stijgt de frequentie (middenfrequente zone), dan is $K_P$ belangrijker. Een heel hoge frequentie (hoogfrequente zone) zorgt voor de dominantie van de procesversterking (G). Dit zien we aan de $\frac{s^2}{G}$ term in de vergelijking.
 
@@ -240,6 +240,11 @@ De proportionele parameter ($K_P$) nemen we als eerste onder handen terwijl we $
 De integraal parameter ($K_I$) 
 
 \cite{Control system design guide}
+
+## Chien - Hrones - Reswick formula 
+Regulator en servo hebben verschillende regels.
+
+![\cite{https://zone.ni.com/reference/en-XX/help/370401J-01/lvpidmain/chienforms/}](images/ChienHronesReswick.jpg)
 
 
 # Computer simulatie
