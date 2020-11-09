@@ -9,7 +9,10 @@ Regeltechniek omvat hoofdzakelijk de volgende onderwerpen:
 
 ### Voorwaardse koppeling (feedforward)
 
+
+
 ### Achterwaardse koppeling (feedback)
+
 
 ### Weerstand tegen storing
 Storing kunnen zowel ruis als externe krachten zijn. 
@@ -26,7 +29,10 @@ In het mid-frequent domein is de weerstand tegen storing het slechtste.
 ## PID architecturen
 
 ## Dode tijd compensatie 
+
 ### Smith predictor
+
+![output Smith predictor](images/output_and_control_action_matlab.jpg)
 
 ## Anti-aliasing
 ## Integrator anti-windup

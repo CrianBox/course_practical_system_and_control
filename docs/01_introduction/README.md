@@ -1,4 +1,4 @@
-# Stuctuur van de cursus
+# Structuur van de cursus
 
 1. Introductie
 
